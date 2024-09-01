@@ -1,22 +1,15 @@
 import subprocess  
-import requests
 
 def generate_commit_message():  
+    # دریافت تغییرات استیج شده  
     try:  
         staged_diff = subprocess.check_output(['git', 'diff', '--cached']).decode('utf-8')  
-        
-        # ارسال به LLM (مثال با استفاده از یک API فرضی)  
-        response = requests.post('https://chat.openai.com/chat', json={'diff': staged_diff})  
-        
-        if response.status_code == 200:  
-            return response.json().get('message', 'Auto-generated commit message based on changes.')  
-        else:  
-            print("Error from LLM:", response.text)  
-            return "Auto-generated commit message based on changes."  
+        # در اینجا می‌توانید کد ارسال به LLM را اضافه کنید  
+        # فرض بر این است که پیام تولید شده به صورت زیر است  
+        return f"Auto-generated commit message based on changes."  # این را با LLM جایگزین کنید  
     except subprocess.CalledProcessError as e:  
         print("Error getting staged changes:", e)  
         return None  
- 
 
 def read_input(prompt):  
     return input(prompt)  
